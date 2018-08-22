@@ -7,21 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45315E6F212B66EA00ABFDC8 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45315E6E212B66EA00ABFDC8 /* Option.swift */; };
+		4538425B212B148D007413A3 /* ExerciseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4538425A212B148D007413A3 /* ExerciseSelectionViewController.swift */; };
+		4538425D212B14AB007413A3 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4538425C212B14AB007413A3 /* ExerciseCell.swift */; };
+		45384261212B160F007413A3 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45384260212B160F007413A3 /* Exercise.swift */; };
+		45513E96212B55E700432CEA /* ExerciseOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45513E95212B55E700432CEA /* ExerciseOptionsViewController.swift */; };
+		45513E98212B560400432CEA /* ExerciseOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45513E97212B560400432CEA /* ExerciseOptionCell.swift */; };
+		456A6516212A06150028D66C /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A6515212A06150028D66C /* RoutineCell.swift */; };
+		456A651B212A56E50028D66C /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A651A212A56E50028D66C /* DayViewController.swift */; };
+		456A651D212A5C730028D66C /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A651C212A5C730028D66C /* DayCell.swift */; };
 		45AB42852127D13D00A5F19D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AB42842127D13D00A5F19D /* AppDelegate.swift */; };
-		45AB42872127D13D00A5F19D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AB42862127D13D00A5F19D /* ViewController.swift */; };
+		45AB42872127D13D00A5F19D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AB42862127D13D00A5F19D /* LoginViewController.swift */; };
 		45AB428A2127D13D00A5F19D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45AB42882127D13D00A5F19D /* Main.storyboard */; };
 		45AB428C2127D13F00A5F19D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45AB428B2127D13F00A5F19D /* Assets.xcassets */; };
 		45AB428F2127D13F00A5F19D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45AB428D2127D13F00A5F19D /* LaunchScreen.storyboard */; };
+		45C68C6C21287B9E00DE3405 /* RoutineSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45315E6E212B66EA00ABFDC8 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		4538425A212B148D007413A3 /* ExerciseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSelectionViewController.swift; sourceTree = "<group>"; };
+		4538425C212B14AB007413A3 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
+		45384260212B160F007413A3 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		45513E95212B55E700432CEA /* ExerciseOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseOptionsViewController.swift; sourceTree = "<group>"; };
+		45513E97212B560400432CEA /* ExerciseOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseOptionCell.swift; sourceTree = "<group>"; };
+		456A6515212A06150028D66C /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
+		456A651A212A56E50028D66C /* DayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
+		456A651C212A5C730028D66C /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		45AB42812127D13D00A5F19D /* Gymlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gymlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AB42842127D13D00A5F19D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		45AB42862127D13D00A5F19D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		45AB42862127D13D00A5F19D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		45AB42892127D13D00A5F19D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		45AB428B2127D13F00A5F19D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45AB428E2127D13F00A5F19D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45AB42902127D13F00A5F19D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSelectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +55,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45384259212B13D7007413A3 /* Exercise Selection */ = {
+			isa = PBXGroup;
+			children = (
+				4538425A212B148D007413A3 /* ExerciseSelectionViewController.swift */,
+				4538425C212B14AB007413A3 /* ExerciseCell.swift */,
+				45384260212B160F007413A3 /* Exercise.swift */,
+			);
+			path = "Exercise Selection";
+			sourceTree = "<group>";
+		};
+		45513E94212B55BD00432CEA /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				45513E95212B55E700432CEA /* ExerciseOptionsViewController.swift */,
+				45513E97212B560400432CEA /* ExerciseOptionCell.swift */,
+				45315E6E212B66EA00ABFDC8 /* Option.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		456A6519212A56CB0028D66C /* Day Selection */ = {
+			isa = PBXGroup;
+			children = (
+				456A651A212A56E50028D66C /* DayViewController.swift */,
+				456A651C212A5C730028D66C /* DayCell.swift */,
+			);
+			path = "Day Selection";
+			sourceTree = "<group>";
+		};
 		45AB42782127D13D00A5F19D = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +103,35 @@
 		45AB42832127D13D00A5F19D /* Gymlog */ = {
 			isa = PBXGroup;
 			children = (
+				45513E94212B55BD00432CEA /* Options */,
+				45384259212B13D7007413A3 /* Exercise Selection */,
+				456A6519212A56CB0028D66C /* Day Selection */,
+				45C68C6821287AAA00DE3405 /* Routine Selection */,
+				45C68C6721287A9500DE3405 /* Login */,
 				45AB42842127D13D00A5F19D /* AppDelegate.swift */,
-				45AB42862127D13D00A5F19D /* ViewController.swift */,
 				45AB42882127D13D00A5F19D /* Main.storyboard */,
 				45AB428B2127D13F00A5F19D /* Assets.xcassets */,
 				45AB428D2127D13F00A5F19D /* LaunchScreen.storyboard */,
 				45AB42902127D13F00A5F19D /* Info.plist */,
 			);
 			path = Gymlog;
+			sourceTree = "<group>";
+		};
+		45C68C6721287A9500DE3405 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				45AB42862127D13D00A5F19D /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		45C68C6821287AAA00DE3405 /* Routine Selection */ = {
+			isa = PBXGroup;
+			children = (
+				45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */,
+				456A6515212A06150028D66C /* RoutineCell.swift */,
+			);
+			path = "Routine Selection";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +205,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45AB42872127D13D00A5F19D /* ViewController.swift in Sources */,
+				4538425B212B148D007413A3 /* ExerciseSelectionViewController.swift in Sources */,
+				45AB42872127D13D00A5F19D /* LoginViewController.swift in Sources */,
+				456A651B212A56E50028D66C /* DayViewController.swift in Sources */,
+				45C68C6C21287B9E00DE3405 /* RoutineSelectionViewController.swift in Sources */,
+				45315E6F212B66EA00ABFDC8 /* Option.swift in Sources */,
+				456A6516212A06150028D66C /* RoutineCell.swift in Sources */,
+				4538425D212B14AB007413A3 /* ExerciseCell.swift in Sources */,
+				456A651D212A5C730028D66C /* DayCell.swift in Sources */,
 				45AB42852127D13D00A5F19D /* AppDelegate.swift in Sources */,
+				45384261212B160F007413A3 /* Exercise.swift in Sources */,
+				45513E96212B55E700432CEA /* ExerciseOptionsViewController.swift in Sources */,
+				45513E98212B560400432CEA /* ExerciseOptionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +370,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.orlandoortegajr.Gymlog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,7 +388,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.orlandoortegajr.Gymlog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
