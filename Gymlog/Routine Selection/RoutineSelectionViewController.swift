@@ -132,9 +132,8 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            performSegue(withIdentifier: "toDaySelection", sender: self)
-        }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DaySelectionViewController") as? DaySelectionViewController
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
 }

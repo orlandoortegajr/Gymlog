@@ -11,14 +11,18 @@ import UIKit
 class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var exerciseTitle: UILabel!
+    
     @IBOutlet weak var tableView: UITableView!
     
     var exerciseOptions = [Option]()
     var individualOptionData = ["0", "0", "0", "0"]
     
+    var exerciseTitleText : String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        exerciseTitle.text = exerciseTitleText
         setupOptions()
         tableView.tableFooterView = UIView(frame: .zero)
     }

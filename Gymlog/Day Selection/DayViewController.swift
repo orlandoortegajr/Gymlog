@@ -10,11 +10,13 @@ import UIKit
 
 class DaySelectionViewController: UIViewController {
 
+    @IBOutlet weak var routineTitleLabel: UILabel!
+    
     @IBOutlet weak var dayTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
-    var days = ["Upper Body I", "Lower Body I", "Upper Body II", "Lower Body II"]
+    var exerciseDays = ["Upper Body I", "Lower Body I", "Upper Body II", "Lower Body II"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +32,9 @@ class DaySelectionViewController: UIViewController {
         if dayTextField.text! == "" {
             print("Empty Cell")
         } else {
-            days.append(dayTextField.text!)
+            exerciseDays.append(dayTextField.text!)
             
-            let indexPath = IndexPath(row: days.count - 1, section: 0)
+            let indexPath = IndexPath(row: exerciseDays.count - 1, section: 0)
             
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
@@ -52,12 +54,12 @@ class DaySelectionViewController: UIViewController {
 extension DaySelectionViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return days.count
+        return exerciseDays.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let day = days[indexPath.row]
+        let day = exerciseDays[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DayCell") as! DayCell
         
@@ -73,7 +75,7 @@ extension DaySelectionViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            days.remove(at: indexPath.row)
+            exerciseDays.remove(at: indexPath.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -83,7 +85,10 @@ extension DaySelectionViewController : UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "toExerciseSelection", sender: self)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseSelectionViewController") as? ExerciseSelectionViewController
+        vc?.exerciseDayLabelText = exerciseDays[indexPath.row]
+        self.navigationController?.pushViewController(vc!, animated: true)
+        
     }
     
 }

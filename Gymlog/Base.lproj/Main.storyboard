@@ -77,7 +77,7 @@
         <!--Selection View Controller-->
         <scene sceneID="7Um-al-peE">
             <objects>
-                <viewController storyboardIdentifier="SelectionViewController" title="Selection View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="luA-JF-gAf" customClass="RoutineSelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RoutineSelectionViewController" title="Selection View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="luA-JF-gAf" customClass="RoutineSelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2No-Gj-lMw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,7 +156,7 @@
         <!--Day Selection View Controller-->
         <scene sceneID="h7J-L4-ZWp">
             <objects>
-                <viewController id="KPA-bm-HKR" customClass="DaySelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DaySelectionViewController" id="KPA-bm-HKR" customClass="DaySelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MOp-1b-4Wd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,8 +222,8 @@
                     </view>
                     <connections>
                         <outlet property="dayTextField" destination="YMD-1e-87u" id="3MT-H9-rTu"/>
+                        <outlet property="routineTitleLabel" destination="JqS-bS-PtX" id="iaJ-YB-5Sh"/>
                         <outlet property="tableView" destination="ENE-3I-egd" id="HWc-tT-lso"/>
-                        <segue destination="vqG-Oc-I1i" kind="show" identifier="toExerciseSelection" id="MC7-Yh-gVm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rps-7M-tdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -233,13 +233,13 @@
         <!--Exercise Selection View Controller-->
         <scene sceneID="boU-iO-ZTN">
             <objects>
-                <viewController id="vqG-Oc-I1i" customClass="ExerciseSelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExerciseSelectionViewController" id="vqG-Oc-I1i" customClass="ExerciseSelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jb6-gP-ttC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exercises" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KbS-oJ-wO7">
-                                <rect key="frame" x="128" y="97" width="119" height="36"/>
+                                <rect key="frame" x="16" y="97" width="343" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -298,14 +298,14 @@
                         <viewLayoutGuide key="safeArea" id="bf8-hj-IRg"/>
                     </view>
                     <connections>
+                        <outlet property="exerciseDayLabel" destination="KbS-oJ-wO7" id="9cK-PZ-8r4"/>
                         <outlet property="exerciseTextField" destination="ERu-hJ-fkM" id="Lu9-LZ-q9w"/>
                         <outlet property="tableView" destination="y8C-Im-CAB" id="1PM-Mp-RvG"/>
-                        <segue destination="lYW-vW-Ibf" kind="show" identifier="toExerciseOptions" id="lqN-mu-YbH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QVV-oO-VY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5308" y="134"/>
+            <point key="canvasLocation" x="5308" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pIl-k9-Yer">
@@ -328,13 +328,13 @@
         <!--Exercise Options View Controller-->
         <scene sceneID="juO-sN-OU9">
             <objects>
-                <viewController id="lYW-vW-Ibf" customClass="ExerciseOptionsViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExerciseOptionsViewController" id="lYW-vW-Ibf" customClass="ExerciseOptionsViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Idt-8b-2o5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exercise Options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhv-dR-ysT">
-                                <rect key="frame" x="80" y="111" width="215" height="36"/>
+                                <rect key="frame" x="16" y="111" width="343" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -394,7 +394,7 @@
                         <viewLayoutGuide key="safeArea" id="S9W-cu-wZ9"/>
                     </view>
                     <connections>
-                        <outlet property="exerciseTitle" destination="Yhv-dR-ysT" id="JJm-06-BQo"/>
+                        <outlet property="exerciseTitle" destination="Yhv-dR-ysT" id="xMf-HQ-LKk"/>
                         <outlet property="tableView" destination="3jT-3a-ekR" id="N2W-hH-ra1"/>
                     </connections>
                 </viewController>

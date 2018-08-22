@@ -10,14 +10,19 @@ import UIKit
 
 class ExerciseSelectionViewController: UIViewController {
 
+    @IBOutlet weak var exerciseDayLabel: UILabel!
+    
     @IBOutlet weak var exerciseTextField: UITextField!
+    
     @IBOutlet weak var tableView: UITableView!
     
     var exercises = [Exercise]()
+    var exerciseDayLabelText : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        exerciseDayLabel.text = exerciseDayLabelText
         tableView.tableFooterView = UIView(frame: .zero)
     }
 
@@ -44,11 +49,7 @@ class ExerciseSelectionViewController: UIViewController {
         }
         
     }
-    
-    func defaultExercises() {
-        let inclineDumbbellChestPress = Exercise(title: "Inclince Dumbbell Chest Press"), bentOverRow = Exercise(title: "Bent-Over Row"), inclineMachinePress = Exercise(title: "Incline Hammer-Strength Chest Press"), dumbbellRow = Exercise(title: "Dumbbell Row"), bicepCurl = Exercise(title: "E/Z Bar Bicep Curl"), skullCrusher = Exercise(title: "Skull Crusher")
-        exercises += [inclineDumbbellChestPress, bentOverRow, inclineMachinePress, dumbbellRow, bicepCurl, skullCrusher]
-    }
+
 }
 
 extension ExerciseSelectionViewController: UITableViewDelegate, UITableViewDataSource {
@@ -84,7 +85,10 @@ extension ExerciseSelectionViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "toExerciseOptions", sender: self)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseOptionsViewController") as? ExerciseOptionsViewController
+        vc?.exerciseTitleText = exercises[indexPath.row].title
+        self.navigationController?.pushViewController(vc!, animated: true)
+
     }
     
 }
