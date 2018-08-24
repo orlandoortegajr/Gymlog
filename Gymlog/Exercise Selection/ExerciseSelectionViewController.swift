@@ -16,13 +16,14 @@ class ExerciseSelectionViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var exercises = [Exercise]()
+    var currentExercise : Exercise!
     var exerciseDayLabelText : String!
+    var currentRoutineDayFromPreviousVC : RoutineDay!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        exerciseDayLabel.text = exerciseDayLabelText
+
         tableView.tableFooterView = UIView(frame: .zero)
     }
 
@@ -35,9 +36,9 @@ class ExerciseSelectionViewController: UIViewController {
             print("Empty Cell")
         } else {
             let tempExercise = Exercise(title: exerciseTextField.text!)
-            exercises.append(tempExercise)
+            currentRoutineDayFromPreviousVC.routineDayExercises.append(tempExercise)
             
-            let indexPath = IndexPath(row: exercises.count - 1, section: 0)
+            let indexPath = IndexPath(row: (currentRoutineDayFromPreviousVC.routineDayExercises.count) - 1, section: 0)
             
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
@@ -49,21 +50,25 @@ class ExerciseSelectionViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func unwindToExerciseScreen(_ sender: UIStoryboardSegue){}
 
 }
 
 extension ExerciseSelectionViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises.count
+        return (currentRoutineDayFromPreviousVC.routineDayExercises.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let exercise = exercises[indexPath.row].title
+        
+        let exercise = currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell") as! ExerciseCell
         
-        cell.exerciseTitle.text = exercise
+        cell.exerciseTitle.text = exercise.title
+        cell.exerciseSubtitle.text = "\(exercise.sets ?? 0) x \(exercise.reps ?? 0)     \(exercise.weight ?? 0) lbs     \(exercise.restTime ?? 0) mins"
         
         return cell
     }
@@ -75,7 +80,7 @@ extension ExerciseSelectionViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            exercises.remove(at: indexPath.row)
+            currentRoutineDayFromPreviousVC.routineDayExercises.remove(at: indexPath.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -86,8 +91,10 @@ extension ExerciseSelectionViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseOptionsViewController") as? ExerciseOptionsViewController
-        vc?.exerciseTitleText = exercises[indexPath.row].title
+        vc?.exerciseTitleText = currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row].title
+        currentExercise = currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row]
         self.navigationController?.pushViewController(vc!, animated: true)
+        
 
     }
     

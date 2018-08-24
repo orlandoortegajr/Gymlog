@@ -10,6 +10,8 @@ import UIKit
 
 class ExerciseCell: UITableViewCell {
 
-    @IBOutlet weak var exerciseTitle: UILabel!    
-
+    @IBOutlet weak var exerciseTitle: UILabel!
+    @IBOutlet weak var exerciseSubtitle: UILabel!
+    
+    
 }

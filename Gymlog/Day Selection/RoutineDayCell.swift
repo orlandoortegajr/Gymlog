@@ -8,8 +8,8 @@
 
 import UIKit
 
-class DayCell: UITableViewCell {
+class RoutineDayCell: UITableViewCell {
 
-    @IBOutlet weak var dayTitle: UILabel!
+    @IBOutlet weak var routineDayTitle: UILabel!
     
 }

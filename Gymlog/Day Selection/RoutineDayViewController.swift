@@ -8,15 +8,17 @@
 
 import UIKit
 
-class DaySelectionViewController: UIViewController {
+class RoutineDaySelectionViewController: UIViewController {
 
     @IBOutlet weak var routineTitleLabel: UILabel!
     
-    @IBOutlet weak var dayTextField: UITextField!
+    @IBOutlet weak var routineDayTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
-    var exerciseDays = ["Upper Body I", "Lower Body I", "Upper Body II", "Lower Body II"]
+    
+    var currentRoutineDay : RoutineDay!
+    var currentRoutineFromPreviousVC : Routine!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +31,14 @@ class DaySelectionViewController: UIViewController {
     }
     
     func insertNewDay() {
-        if dayTextField.text! == "" {
+        if routineDayTextField.text! == "" {
             print("Empty Cell")
         } else {
-            exerciseDays.append(dayTextField.text!)
+            let tempRoutineDay = RoutineDay(routineDayTitle: routineDayTextField.text!)
             
-            let indexPath = IndexPath(row: exerciseDays.count - 1, section: 0)
+            currentRoutineFromPreviousVC.routineDays.append(tempRoutineDay)
+            
+            let indexPath = IndexPath(row: currentRoutineFromPreviousVC.routineDays.count - 1, section: 0)
             
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
@@ -42,7 +46,7 @@ class DaySelectionViewController: UIViewController {
             
             view.endEditing(true)
             
-            dayTextField.text = ""
+            routineDayTextField.text = ""
         }
        
     }
@@ -51,19 +55,19 @@ class DaySelectionViewController: UIViewController {
 
 //Setting Up the Table and It's action capabilities
 
-extension DaySelectionViewController : UITableViewDelegate, UITableViewDataSource {
+extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exerciseDays.count
+        return currentRoutineFromPreviousVC.routineDays.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let day = exerciseDays[indexPath.row]
+        let day = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayTitle
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DayCell") as! DayCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DayCell") as! RoutineDayCell
         
-        cell.dayTitle.text = day
+        cell.routineDayTitle.text = day
         
         return cell
     }
@@ -75,7 +79,7 @@ extension DaySelectionViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            exerciseDays.remove(at: indexPath.row)
+            currentRoutineFromPreviousVC.routineDays.remove(at: indexPath.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -86,7 +90,10 @@ extension DaySelectionViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseSelectionViewController") as? ExerciseSelectionViewController
-        vc?.exerciseDayLabelText = exerciseDays[indexPath.row]
+        vc?.exerciseDayLabelText = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayTitle
+        currentRoutineDay = currentRoutineFromPreviousVC.routineDays[indexPath.row]
+        vc?.currentRoutineDayFromPreviousVC = currentRoutineDay
+        print(currentRoutineDay.routineDayTitle)
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }

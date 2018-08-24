@@ -87,7 +87,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.57647058819999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoutineCell" id="NIF-wq-Exo" customClass="RoutineCell" customModule="Gymlog" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoutineCell" id="NIF-wq-Exo" customClass="RoutineCell" customModule="Gymlog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NIF-wq-Exo" id="GAN-OB-CWY">
@@ -153,10 +153,10 @@
             </objects>
             <point key="canvasLocation" x="3720.8000000000002" y="133.5832083958021"/>
         </scene>
-        <!--Day Selection View Controller-->
+        <!--Routine Day Selection View Controller-->
         <scene sceneID="h7J-L4-ZWp">
             <objects>
-                <viewController storyboardIdentifier="DaySelectionViewController" id="KPA-bm-HKR" customClass="DaySelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DaySelectionViewController" id="KPA-bm-HKR" customClass="RoutineDaySelectionViewController" customModule="Gymlog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MOp-1b-4Wd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,7 +173,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.57647058819999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DayCell" id="t9u-tj-5VX" customClass="DayCell" customModule="Gymlog" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DayCell" id="t9u-tj-5VX" customClass="RoutineDayCell" customModule="Gymlog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t9u-tj-5VX" id="tH3-UR-UNS">
@@ -190,7 +190,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="dayTitle" destination="7Y9-6s-jXp" id="qRd-77-GBr"/>
+                                            <outlet property="routineDayTitle" destination="7Y9-6s-jXp" id="qRd-77-GBr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -221,9 +221,10 @@
                         <viewLayoutGuide key="safeArea" id="7Bg-kK-6aV"/>
                     </view>
                     <connections>
-                        <outlet property="dayTextField" destination="YMD-1e-87u" id="3MT-H9-rTu"/>
+                        <outlet property="routineDayTextField" destination="YMD-1e-87u" id="3MT-H9-rTu"/>
                         <outlet property="routineTitleLabel" destination="JqS-bS-PtX" id="iaJ-YB-5Sh"/>
                         <outlet property="tableView" destination="ENE-3I-egd" id="HWc-tT-lso"/>
+                        <segue destination="vqG-Oc-I1i" kind="show" identifier="toExerciseScreen" id="Tu9-e6-8Pd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rps-7M-tdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -267,24 +268,32 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.57647058819999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseCell" id="bvD-RZ-R2u" customClass="ExerciseCell" customModule="Gymlog" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseCell" textLabel="kYa-5x-VUG" detailTextLabel="kcc-UG-0lo" style="IBUITableViewCellStyleSubtitle" id="bvD-RZ-R2u" customClass="ExerciseCell" customModule="Gymlog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bvD-RZ-R2u" id="GIj-wQ-kbG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54d-jD-Ysp">
-                                                    <rect key="frame" x="15" y="21" width="345" height="33"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kYa-5x-VUG">
+                                                    <rect key="frame" x="15" y="17" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kcc-UG-0lo">
+                                                    <rect key="frame" x="15" y="40.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="exerciseTitle" destination="54d-jD-Ysp" id="2Qu-3E-RAn"/>
+                                            <outlet property="exerciseSubtitle" destination="kcc-UG-0lo" id="PPh-IY-g07"/>
+                                            <outlet property="exerciseTitle" destination="kYa-5x-VUG" id="r31-E4-qVu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -301,6 +310,7 @@
                         <outlet property="exerciseDayLabel" destination="KbS-oJ-wO7" id="9cK-PZ-8r4"/>
                         <outlet property="exerciseTextField" destination="ERu-hJ-fkM" id="Lu9-LZ-q9w"/>
                         <outlet property="tableView" destination="y8C-Im-CAB" id="1PM-Mp-RvG"/>
+                        <segue destination="lYW-vW-Ibf" kind="show" identifier="toExerciseOptions" id="MHo-mC-RPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QVV-oO-VY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -345,7 +355,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.57647058819999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseOptionCell" id="wTe-Y6-9Rg" customClass="ExerciseOptionCell" customModule="Gymlog" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseOptionCell" id="wTe-Y6-9Rg" customClass="ExerciseOptionCell" customModule="Gymlog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wTe-Y6-9Rg" id="WlQ-WO-TDl">
@@ -380,13 +390,13 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwR-na-S1s">
-                                <rect key="frame" x="80" y="548" width="215" height="40"/>
+                                <rect key="frame" x="106" y="545" width="163" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.1529411765" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="23"/>
-                                <state key="normal" title="Complete Set"/>
+                                <state key="normal" title="Done"/>
                                 <connections>
-                                    <action selector="completeSetButtonPressed:" destination="lYW-vW-Ibf" eventType="touchUpInside" id="7Ac-Gj-gi4"/>
+                                    <segue destination="xaV-P3-uzg" kind="unwind" unwindAction="unwindToExerciseScreen:" id="TaK-q0-f06"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -399,6 +409,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RK7-1v-N0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xaV-P3-uzg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6080.8000000000002" y="133.5832083958021"/>
         </scene>

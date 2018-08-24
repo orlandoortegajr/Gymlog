@@ -10,6 +10,8 @@ import UIKit
 
 class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     
+    //TODO: Setup Two TextFields for Total Rest Time in order to get minute and seconds and improve UI
+    
     @IBOutlet weak var exerciseTitle: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
@@ -26,10 +28,6 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
         setupOptions()
         tableView.tableFooterView = UIView(frame: .zero)
     }
-    
-    @IBAction func completeSetButtonPressed(_ sender: UIButton) {
-    }
-    
     
     func setupOptions() {
         let reps = Option(title: "Number of Reps", counter: 0), sets = Option(title: "Number of Sets", counter: 0), weight = Option(title: "Weight", counter: 0), restTime = Option(title: "Total Rest Time", counter: 0)
@@ -56,10 +54,21 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldAfterReturn(_ textField: UITextField) {
+        individualOptionData[textField.tag] = textField.text!
         textField.borderStyle = .none
         textField.textAlignment = .center
         textField.backgroundColor = UIColor.green
         textField.resignFirstResponder()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC = segue.destination as! ExerciseSelectionViewController
+        print(destVC.currentExercise.title)
+        destVC.currentExercise.reps = Int(individualOptionData[0])
+        destVC.currentExercise.sets = Int(individualOptionData[1])
+        destVC.currentExercise.weight = Int(individualOptionData[2])
+        destVC.currentExercise.restTime = Int(individualOptionData[3])
+        destVC.tableView.reloadData()
     }
 
 }

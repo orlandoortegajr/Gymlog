@@ -10,8 +10,9 @@ import UIKit
 
 class RoutineSelectionViewController: UIViewController {
     
-    var routines = ["Default Routine"]
+    var routines = [Routine]()
     var addedRoutine : String?
+    var currentSelectedRoutine : Routine!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -75,7 +76,7 @@ class RoutineSelectionViewController: UIViewController {
             if textField!.text! == "" {
                 print("Empty Cell")
             } else {
-                self.routines.append(textField!.text!)
+                self.routines.append(Routine(routineTitle: textField!.text!))
                 self.insertNewRoutine()
             }
         }))
@@ -94,6 +95,7 @@ class RoutineSelectionViewController: UIViewController {
         tableView.endUpdates()
 
         view.endEditing(true)
+        
     }
 }
 
@@ -107,7 +109,7 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let routine = routines[indexPath.row]
+        let routine = routines[indexPath.row].routineTitle
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell") as! RoutineCell
         
@@ -132,7 +134,9 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "DaySelectionViewController") as? DaySelectionViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DaySelectionViewController") as? RoutineDaySelectionViewController
+        currentSelectedRoutine = routines[indexPath.row]
+        vc?.currentRoutineFromPreviousVC = currentSelectedRoutine
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
