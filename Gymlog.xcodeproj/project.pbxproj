@@ -23,10 +23,13 @@
 		45AB428A2127D13D00A5F19D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45AB42882127D13D00A5F19D /* Main.storyboard */; };
 		45AB428C2127D13F00A5F19D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45AB428B2127D13F00A5F19D /* Assets.xcassets */; };
 		45AB428F2127D13F00A5F19D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45AB428D2127D13F00A5F19D /* LaunchScreen.storyboard */; };
+		45B901412130E51A001B9692 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45B901402130E51A001B9692 /* GoogleService-Info.plist */; };
 		45C68C6C21287B9E00DE3405 /* RoutineSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */; };
+		B0274CE3ACF5414936174403 /* Pods_Gymlog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1465FD794C0275FA5EE31598 /* Pods_Gymlog.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1465FD794C0275FA5EE31598 /* Pods_Gymlog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gymlog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45315E6E212B66EA00ABFDC8 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		45379EFA212F39EF005D3BF2 /* RoutineDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDay.swift; sourceTree = "<group>"; };
 		45379EFC212F5142005D3BF2 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
@@ -45,7 +48,10 @@
 		45AB428B2127D13F00A5F19D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45AB428E2127D13F00A5F19D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45AB42902127D13F00A5F19D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45B901402130E51A001B9692 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSelectionViewController.swift; sourceTree = "<group>"; };
+		8C2EA97879B455461CA98604 /* Pods-Gymlog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gymlog.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog.release.xcconfig"; sourceTree = "<group>"; };
+		B5EBBE1CAB4F37F312688A8C /* Pods-Gymlog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gymlog.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,12 +59,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0274CE3ACF5414936174403 /* Pods_Gymlog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2951396B502A95F718C4A6DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B5EBBE1CAB4F37F312688A8C /* Pods-Gymlog.debug.xcconfig */,
+				8C2EA97879B455461CA98604 /* Pods-Gymlog.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		45384259212B13D7007413A3 /* Exercise Selection */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +110,8 @@
 			children = (
 				45AB42832127D13D00A5F19D /* Gymlog */,
 				45AB42822127D13D00A5F19D /* Products */,
+				2951396B502A95F718C4A6DB /* Pods */,
+				60777551CEEAD9A26001E2D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,13 +131,22 @@
 				456A6519212A56CB0028D66C /* Day Selection */,
 				45C68C6821287AAA00DE3405 /* Routine Selection */,
 				45C68C6721287A9500DE3405 /* Login */,
-				45AB42842127D13D00A5F19D /* AppDelegate.swift */,
+				45B9013F21309A8C001B9692 /* Supporting Files */,
+			);
+			path = Gymlog;
+			sourceTree = "<group>";
+		};
+		45B9013F21309A8C001B9692 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				45AB42882127D13D00A5F19D /* Main.storyboard */,
+				45AB42842127D13D00A5F19D /* AppDelegate.swift */,
 				45AB428B2127D13F00A5F19D /* Assets.xcassets */,
 				45AB428D2127D13F00A5F19D /* LaunchScreen.storyboard */,
 				45AB42902127D13F00A5F19D /* Info.plist */,
+				45B901402130E51A001B9692 /* GoogleService-Info.plist */,
 			);
-			path = Gymlog;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		45C68C6721287A9500DE3405 /* Login */ = {
@@ -140,6 +167,14 @@
 			path = "Routine Selection";
 			sourceTree = "<group>";
 		};
+		60777551CEEAD9A26001E2D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1465FD794C0275FA5EE31598 /* Pods_Gymlog.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +182,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45AB42932127D13F00A5F19D /* Build configuration list for PBXNativeTarget "Gymlog" */;
 			buildPhases = (
+				7C7BCDFB05C081FA122C0F45 /* [CP] Check Pods Manifest.lock */,
 				45AB427D2127D13D00A5F19D /* Sources */,
 				45AB427E2127D13D00A5F19D /* Frameworks */,
 				45AB427F2127D13D00A5F19D /* Resources */,
+				85AB360338573A0A36D1EA4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B901412130E51A001B9692 /* GoogleService-Info.plist in Resources */,
 				45AB428F2127D13F00A5F19D /* LaunchScreen.storyboard in Resources */,
 				45AB428C2127D13F00A5F19D /* Assets.xcassets in Resources */,
 				45AB428A2127D13D00A5F19D /* Main.storyboard in Resources */,
@@ -205,6 +243,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7C7BCDFB05C081FA122C0F45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gymlog-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85AB360338573A0A36D1EA4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		45AB427D2127D13D00A5F19D /* Sources */ = {
@@ -366,11 +447,12 @@
 		};
 		45AB42942127D13F00A5F19D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5EBBE1CAB4F37F312688A8C /* Pods-Gymlog.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K48B6RJRHT;
-				INFOPLIST_FILE = Gymlog/Info.plist;
+				INFOPLIST_FILE = "Gymlog/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -384,11 +466,12 @@
 		};
 		45AB42952127D13F00A5F19D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C2EA97879B455461CA98604 /* Pods-Gymlog.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K48B6RJRHT;
-				INFOPLIST_FILE = Gymlog/Info.plist;
+				INFOPLIST_FILE = "Gymlog/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

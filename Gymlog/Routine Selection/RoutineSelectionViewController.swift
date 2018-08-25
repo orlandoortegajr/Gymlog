@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RoutineSelectionViewController: UIViewController {
     
     var routines = [Routine]()
     var addedRoutine : String?
     var currentSelectedRoutine : Routine!
+    
+    var handle : AuthStateDidChangeListenerHandle?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,6 +25,19 @@ class RoutineSelectionViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: .zero)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            self.tableView.reloadData()
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Auth.auth().removeStateDidChangeListener(handle!)
+    }
 //==================================
 //   NavigationBar Configurations
 //==================================

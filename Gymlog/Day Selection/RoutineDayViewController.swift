@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RoutineDaySelectionViewController: UIViewController {
 
@@ -20,10 +21,26 @@ class RoutineDaySelectionViewController: UIViewController {
     var currentRoutineDay : RoutineDay!
     var currentRoutineFromPreviousVC : Routine!
     
+    var handle : AuthStateDidChangeListenerHandle?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView(frame: .zero)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            self.tableView.reloadData()
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
