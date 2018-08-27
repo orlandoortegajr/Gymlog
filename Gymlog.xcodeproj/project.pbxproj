@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4505A3352131A0A20018B138 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4505A3342131A0A20018B138 /* SignUpViewController.swift */; };
 		45315E6F212B66EA00ABFDC8 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45315E6E212B66EA00ABFDC8 /* Option.swift */; };
 		45379EFB212F39EF005D3BF2 /* RoutineDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45379EFA212F39EF005D3BF2 /* RoutineDay.swift */; };
 		45379EFD212F5142005D3BF2 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45379EFC212F5142005D3BF2 /* Routine.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		1465FD794C0275FA5EE31598 /* Pods_Gymlog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gymlog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4505A3342131A0A20018B138 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		45315E6E212B66EA00ABFDC8 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		45379EFA212F39EF005D3BF2 /* RoutineDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDay.swift; sourceTree = "<group>"; };
 		45379EFC212F5142005D3BF2 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
@@ -130,7 +132,7 @@
 				45384259212B13D7007413A3 /* Exercise Selection */,
 				456A6519212A56CB0028D66C /* Day Selection */,
 				45C68C6821287AAA00DE3405 /* Routine Selection */,
-				45C68C6721287A9500DE3405 /* Login */,
+				45C68C6721287A9500DE3405 /* Authentication */,
 				45B9013F21309A8C001B9692 /* Supporting Files */,
 			);
 			path = Gymlog;
@@ -149,12 +151,13 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		45C68C6721287A9500DE3405 /* Login */ = {
+		45C68C6721287A9500DE3405 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				45AB42862127D13D00A5F19D /* LoginViewController.swift */,
+				4505A3342131A0A20018B138 /* SignUpViewController.swift */,
 			);
-			path = Login;
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		45C68C6821287AAA00DE3405 /* Routine Selection */ = {
@@ -187,6 +190,7 @@
 				45AB427E2127D13D00A5F19D /* Frameworks */,
 				45AB427F2127D13D00A5F19D /* Resources */,
 				85AB360338573A0A36D1EA4F /* [CP] Embed Pods Frameworks */,
+				680C3EF75BC363D3D1FA3704 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,6 +249,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		680C3EF75BC363D3D1FA3704 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7C7BCDFB05C081FA122C0F45 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -270,13 +292,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Gymlog/Pods-Gymlog-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -301,6 +327,7 @@
 				4538425D212B14AB007413A3 /* ExerciseCell.swift in Sources */,
 				45379EFB212F39EF005D3BF2 /* RoutineDay.swift in Sources */,
 				45379EFD212F5142005D3BF2 /* Routine.swift in Sources */,
+				4505A3352131A0A20018B138 /* SignUpViewController.swift in Sources */,
 				456A651D212A5C730028D66C /* RoutineDayCell.swift in Sources */,
 				45AB42852127D13D00A5F19D /* AppDelegate.swift in Sources */,
 				45384261212B160F007413A3 /* Exercise.swift in Sources */,

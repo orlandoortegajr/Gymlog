@@ -8,5 +8,6 @@ target 'Gymlog' do
   # Pods for Gymlog
 	pod 'Firebase/Core'
 	pod 'Firebase/Auth'
+	pod 'GoogleSignIn'
 
 end

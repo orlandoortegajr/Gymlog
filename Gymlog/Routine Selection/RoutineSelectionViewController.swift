@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class RoutineSelectionViewController: UIViewController {
     
@@ -43,7 +44,15 @@ class RoutineSelectionViewController: UIViewController {
 //==================================
     
     @IBAction func logoutButton(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "backToLoginScreen", sender: self)
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance().signOut()
+            self.navigationController?.popToRootViewController(animated: true)
+        }   catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+        
     }
     
 //==================================
