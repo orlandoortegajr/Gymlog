@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
+import FBSDKLoginKit
 
 class RoutineSelectionViewController: UIViewController {
     
@@ -48,6 +49,7 @@ class RoutineSelectionViewController: UIViewController {
         do {
             try firebaseAuth.signOut()
             GIDSignIn.sharedInstance().signOut()
+            FBSDKLoginManager().logOut()
             self.navigationController?.popToRootViewController(animated: true)
         }   catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
