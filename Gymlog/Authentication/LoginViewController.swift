@@ -10,11 +10,14 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
+import FirebaseDatabase
 
 class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    var ref : DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
         
         setupGoogleButton()
         setupFacebookButton()
@@ -66,6 +70,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
                     print(error.localizedDescription)
                 }
                 // User is signed in
+                let usersReference = self.ref.child("users")
+                let values = ["email" : authResult!.user.email!, "name" : authResult!.user.displayName! ]
+                usersReference.child((authResult?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
+                    
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    
+                    print("Facebook user has been added to the database.")
+                })
                 self.performSegue(withIdentifier: "toMainScreen", sender: self)
             }
         }

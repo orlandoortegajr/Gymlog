@@ -8,12 +8,16 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +25,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
+        
+        ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
     
     //TODO: Make Errors Display Properly
     //TODO: Managae Users Documentation
     @IBAction func completeSignUp(_ sender: UIButton) {
+        if let name = nameTextField.text, name != "" {
         if let email = emailTextField.text, email != "" {
             if let password = passwordTextField.text {
                 if let confirmPassword = confirmPasswordTextField.text {
@@ -40,6 +47,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                 print(error!.localizedDescription)
                                 return
                             }
+                            let usersReference = self.ref.child("users")
+                            let values = ["email" : email, "name" : name ]
+                            usersReference.child((authResult?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
+                                
+                                if error != nil {
+                                    print(error!)
+                                    return
+                                }
+                                
+                                print("E-mail user has been added to the database.")
+                            })
                             
                             print("\(email) created")
                             
@@ -60,6 +78,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
         } else {
             print("Email can't be empty")
+        }
+        } else {
+            print("Name can't be empty")
         }
     }
     

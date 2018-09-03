@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import FBSDKCoreKit
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var window: UIWindow?
 
+    var ref : DatabaseReference!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -53,7 +55,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             //User is Signed In...
             //User is now authenticated, allow them on
-            print("User is now signed In, performing transition")
+            self.ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
+            let usersReference = self.ref.child("users")
+            let values = ["email" : authResult!.user.email!, "name" : authResult!.user.displayName! ]
+            usersReference.child((authResult?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                print("Google user has been added to the database.")
+            })
+            
+            print("Google user is now signed In, performing transition")
             let rootViewController = self.window!.rootViewController as! UINavigationController
             let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let RoutineSelectionViewController = mainStoryboard.instantiateViewController(withIdentifier: "RoutineSelectionViewController") as! RoutineSelectionViewController
