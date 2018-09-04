@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class ExerciseSelectionViewController: UIViewController {
 
@@ -21,6 +22,8 @@ class ExerciseSelectionViewController: UIViewController {
     var exerciseDayLabelText : String!
     var currentRoutineDayFromPreviousVC : RoutineDay!
     
+    var ref: DatabaseReference!
+    
     var handle : AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
@@ -28,6 +31,7 @@ class ExerciseSelectionViewController: UIViewController {
 
 
         tableView.tableFooterView = UIView(frame: .zero)
+        ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,9 +57,18 @@ class ExerciseSelectionViewController: UIViewController {
             print("Empty Cell")
         } else {
             let tempExercise = Exercise(title: exerciseTextField.text!)
+            let userID = Auth.auth().currentUser?.uid
             currentRoutineDayFromPreviousVC.routineDayExercises.append(tempExercise)
+            let values = ["sets": tempExercise.sets ?? 0, "reps" : tempExercise.reps ?? 0, "weight" : tempExercise.weight ?? 0 ]
             
             let indexPath = IndexPath(row: (currentRoutineDayFromPreviousVC.routineDayExercises.count) - 1, section: 0)
+            self.ref.child("Gym Routines/\(userID!)/routine exercises/\(tempExercise.title)").updateChildValues(values, withCompletionBlock: { (error, ref) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                print("Exercise added to database")
+            })
             
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)

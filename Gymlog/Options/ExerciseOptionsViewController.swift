@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     
@@ -21,12 +23,16 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     
     var exerciseTitleText : String!
     
+    var ref : DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         exerciseTitle.text = exerciseTitleText
         setupOptions()
         tableView.tableFooterView = UIView(frame: .zero)
+        
+        ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
     
     func setupOptions() {
@@ -68,6 +74,16 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
         destVC.currentExercise.sets = Int(individualOptionData[1])
         destVC.currentExercise.weight = Int(individualOptionData[2])
         destVC.currentExercise.restTime = Int(individualOptionData[3])
+        
+        let userID = Auth.auth().currentUser?.uid
+        let values = ["sets": Int(individualOptionData[1])!, "reps" : Int(individualOptionData[0])!, "weight" : Int(individualOptionData[2])! ]
+        self.ref.child("Gym Routines/\(userID!)/routine exercises/\(destVC.currentExercise.title)").updateChildValues(values, withCompletionBlock: { (error, ref) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            print("Exercise added to database")
+        })
         destVC.tableView.reloadData()
     }
 

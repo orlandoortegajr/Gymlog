@@ -10,14 +10,18 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
+import FirebaseDatabase
 
 class RoutineSelectionViewController: UIViewController {
     
     var routines = [Routine]()
     var addedRoutine : String?
     var currentSelectedRoutine : Routine!
+    var currentRoutineChildValue: Dictionary<String, String>!
     
     var handle : AuthStateDidChangeListenerHandle?
+    
+    var ref: DatabaseReference!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,6 +29,7 @@ class RoutineSelectionViewController: UIViewController {
         super.viewDidLoad()
     
         tableView.tableFooterView = UIView(frame: .zero)
+        ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +38,7 @@ class RoutineSelectionViewController: UIViewController {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             self.tableView.reloadData()
         })
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -116,6 +122,9 @@ class RoutineSelectionViewController: UIViewController {
 //Method that adds cells respective to the given routine name
     func insertNewRoutine() {
         let indexPath = IndexPath(row: routines.count - 1, section: 0)
+        let routine = routines[indexPath.row].routineTitle
+        currentRoutineChildValue = ["routine \(indexPath.row + 1)": routine]
+        self.ref.child("Gym Routines").child((Auth.auth().currentUser?.uid)!).child("routine titles").updateChildValues(currentRoutineChildValue)
         
         tableView.beginUpdates()
         tableView.insertRows(at: [indexPath], with: .automatic)

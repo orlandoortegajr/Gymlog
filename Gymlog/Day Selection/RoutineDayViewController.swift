@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class RoutineDaySelectionViewController: UIViewController {
 
@@ -17,9 +18,12 @@ class RoutineDaySelectionViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var ref : DatabaseReference!
+    
     
     var currentRoutineDay : RoutineDay!
     var currentRoutineFromPreviousVC : Routine!
+    var currentRoutineDayChildValue : Dictionary<String, String>!
     
     var handle : AuthStateDidChangeListenerHandle?
     
@@ -27,6 +31,7 @@ class RoutineDaySelectionViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView(frame: .zero)
+        ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,10 +57,16 @@ class RoutineDaySelectionViewController: UIViewController {
             print("Empty Cell")
         } else {
             let tempRoutineDay = RoutineDay(routineDayTitle: routineDayTextField.text!)
+            let userID = Auth.auth().currentUser?.uid
+            let routineDay = tempRoutineDay.routineDayTitle
             
             currentRoutineFromPreviousVC.routineDays.append(tempRoutineDay)
             
+            
+            
             let indexPath = IndexPath(row: currentRoutineFromPreviousVC.routineDays.count - 1, section: 0)
+            currentRoutineDayChildValue = ["routine day \(indexPath.row + 1)" : routineDay]
+            self.ref.child("Gym Routines/\(userID!)/routine days").updateChildValues(currentRoutineDayChildValue)
             
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
