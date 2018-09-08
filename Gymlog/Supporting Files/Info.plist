@@ -47,7 +47,7 @@
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>fb2194562020788481</string>
-                 <string>com.googleusercontent.apps.389414734863-pe6et5m10371im29k8gao6fmsq2djopi</string>
+                 <string>{Google Api Key}</string>
             </array>
         </dict>
     </array>
