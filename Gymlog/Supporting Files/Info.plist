@@ -46,13 +46,13 @@
             <string>Editor</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>fb2194562020788481</string>
+                <string>{fb API Key}</string>
                  <string>{Google Api Key}</string>
             </array>
         </dict>
     </array>
     <key>FacebookAppID</key>
-    <string>2194562020788481</string>
+    <string>{fb API Key}</string>
     <key>FacebookDisplayName</key>
     <string>Gymlog</string>
     <key>LSApplicationQueriesSchemes</key>
