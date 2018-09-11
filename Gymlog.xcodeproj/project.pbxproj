@@ -77,34 +77,49 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		45384259212B13D7007413A3 /* Exercise Selection */ = {
+		453D34B621419FDF006FC6A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4538425A212B148D007413A3 /* ExerciseSelectionViewController.swift */,
-				4538425C212B14AB007413A3 /* ExerciseCell.swift */,
+				453D34BA2141A2BC006FC6A1 /* Table View Cell Models */,
+				45315E6E212B66EA00ABFDC8 /* Option.swift */,
 				45384260212B160F007413A3 /* Exercise.swift */,
+				45379EFA212F39EF005D3BF2 /* RoutineDay.swift */,
+				45379EFC212F5142005D3BF2 /* Routine.swift */,
 			);
-			path = "Exercise Selection";
+			path = Model;
 			sourceTree = "<group>";
 		};
-		45513E94212B55BD00432CEA /* Options */ = {
+		453D34B721419FF4006FC6A1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				45AB42882127D13D00A5F19D /* Main.storyboard */,
+				45AB428D2127D13F00A5F19D /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		453D34B821419FFB006FC6A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				45513E95212B55E700432CEA /* ExerciseOptionsViewController.swift */,
-				45513E97212B560400432CEA /* ExerciseOptionCell.swift */,
-				45315E6E212B66EA00ABFDC8 /* Option.swift */,
+				4538425A212B148D007413A3 /* ExerciseSelectionViewController.swift */,
+				456A651A212A56E50028D66C /* RoutineDayViewController.swift */,
+				45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */,
+				45AB42862127D13D00A5F19D /* LoginViewController.swift */,
+				4505A3342131A0A20018B138 /* SignUpViewController.swift */,
 			);
-			path = Options;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		456A6519212A56CB0028D66C /* Day Selection */ = {
+		453D34BA2141A2BC006FC6A1 /* Table View Cell Models */ = {
 			isa = PBXGroup;
 			children = (
-				456A651A212A56E50028D66C /* RoutineDayViewController.swift */,
+				45513E97212B560400432CEA /* ExerciseOptionCell.swift */,
+				4538425C212B14AB007413A3 /* ExerciseCell.swift */,
 				456A651C212A5C730028D66C /* RoutineDayCell.swift */,
-				45379EFA212F39EF005D3BF2 /* RoutineDay.swift */,
+				456A6515212A06150028D66C /* RoutineCell.swift */,
 			);
-			path = "Day Selection";
+			path = "Table View Cell Models";
 			sourceTree = "<group>";
 		};
 		45AB42782127D13D00A5F19D = {
@@ -128,11 +143,9 @@
 		45AB42832127D13D00A5F19D /* Gymlog */ = {
 			isa = PBXGroup;
 			children = (
-				45513E94212B55BD00432CEA /* Options */,
-				45384259212B13D7007413A3 /* Exercise Selection */,
-				456A6519212A56CB0028D66C /* Day Selection */,
-				45C68C6821287AAA00DE3405 /* Routine Selection */,
-				45C68C6721287A9500DE3405 /* Authentication */,
+				453D34B621419FDF006FC6A1 /* Model */,
+				453D34B721419FF4006FC6A1 /* View */,
+				453D34B821419FFB006FC6A1 /* Controller */,
 				45B9013F21309A8C001B9692 /* Supporting Files */,
 			);
 			path = Gymlog;
@@ -141,33 +154,12 @@
 		45B9013F21309A8C001B9692 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				45AB42882127D13D00A5F19D /* Main.storyboard */,
 				45AB42842127D13D00A5F19D /* AppDelegate.swift */,
 				45AB428B2127D13F00A5F19D /* Assets.xcassets */,
-				45AB428D2127D13F00A5F19D /* LaunchScreen.storyboard */,
 				45AB42902127D13F00A5F19D /* Info.plist */,
 				45B901402130E51A001B9692 /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		45C68C6721287A9500DE3405 /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-				45AB42862127D13D00A5F19D /* LoginViewController.swift */,
-				4505A3342131A0A20018B138 /* SignUpViewController.swift */,
-			);
-			path = Authentication;
-			sourceTree = "<group>";
-		};
-		45C68C6821287AAA00DE3405 /* Routine Selection */ = {
-			isa = PBXGroup;
-			children = (
-				45C68C6B21287B9E00DE3405 /* RoutineSelectionViewController.swift */,
-				456A6515212A06150028D66C /* RoutineCell.swift */,
-				45379EFC212F5142005D3BF2 /* Routine.swift */,
-			);
-			path = "Routine Selection";
 			sourceTree = "<group>";
 		};
 		60777551CEEAD9A26001E2D1 /* Frameworks */ = {
