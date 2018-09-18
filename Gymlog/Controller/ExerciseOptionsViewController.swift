@@ -24,6 +24,10 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     var exerciseTitleText : String!
     
     var ref : DatabaseReference!
+    var routineNumber : Int!
+    
+    var routineDayKey : String!
+    var exerciseKey: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,9 +79,9 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
         destVC.currentExercise.weight = Int(individualOptionData[2])
         destVC.currentExercise.restTime = Int(individualOptionData[3])
         
-        let userID = Auth.auth().currentUser?.uid
         let values = ["sets": Int(individualOptionData[1])!, "reps" : Int(individualOptionData[0])!, "weight" : Int(individualOptionData[2])! ]
-        self.ref.child("Gym Routines/\(userID!)/routine exercises/\(destVC.currentExercise.title)").updateChildValues(values, withCompletionBlock: { (error, ref) in
+        //"Exercises/\(routineDayKey!)/"
+        self.ref.child("Exercises/\(routineDayKey!)/\(exerciseKey!)/\(destVC.currentExercise.title)").updateChildValues(values, withCompletionBlock: { (error, ref) in
             if error != nil {
                 print(error!)
                 return

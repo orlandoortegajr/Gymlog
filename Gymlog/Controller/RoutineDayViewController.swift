@@ -25,6 +25,15 @@ class RoutineDaySelectionViewController: UIViewController {
     var currentRoutineFromPreviousVC : Routine!
     var currentRoutineDayChildValue : Dictionary<String, String>!
     
+    //From last view controller that describe the current routine
+    var currentRoutineIdentifier: String!
+    var currentRoutineName: String!
+    var routineKey: String!
+    
+    //Current routine day selected variables to be passed on
+    var currentRoutineDayIdentifier: String!
+    var currentRoutineDayName: String!
+    
     var handle : AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
@@ -56,17 +65,21 @@ class RoutineDaySelectionViewController: UIViewController {
         if routineDayTextField.text! == "" {
             print("Empty Cell")
         } else {
-            let tempRoutineDay = RoutineDay(routineDayTitle: routineDayTextField.text!)
-            let userID = Auth.auth().currentUser?.uid
-            let routineDay = tempRoutineDay.routineDayTitle
-            
+            let key = ref.child("Routine Days").childByAutoId().key
+            let tempRoutineDay = RoutineDay(routineDayTitle: routineDayTextField.text!, routineDayKey: key)
             currentRoutineFromPreviousVC.routineDays.append(tempRoutineDay)
-            
-            
+            let routineDayTitle = tempRoutineDay.routineDayTitle
             
             let indexPath = IndexPath(row: currentRoutineFromPreviousVC.routineDays.count - 1, section: 0)
-            currentRoutineDayChildValue = ["routine day \(indexPath.row + 1)" : routineDay]
-            self.ref.child("Gym Routines/\(userID!)/routine days").updateChildValues(currentRoutineDayChildValue)
+            currentRoutineDayChildValue = ["routine day \(indexPath.row + 1)" : routineDayTitle]
+            for (key,value) in currentRoutineDayChildValue {
+                currentRoutineDayIdentifier = key
+                currentRoutineDayName = value
+            }
+            
+            let routineDay = ["Routine Day Title": routineDayTitle]
+            let childUpdates = ["Routine Days/\(routineKey!)/\(key)": routineDay]
+            ref.updateChildValues(childUpdates)
             
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
@@ -104,7 +117,7 @@ extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDa
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
             currentRoutineFromPreviousVC.routineDays.remove(at: indexPath.row)
@@ -121,6 +134,11 @@ extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDa
         vc?.exerciseDayLabelText = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayTitle
         currentRoutineDay = currentRoutineFromPreviousVC.routineDays[indexPath.row]
         vc?.currentRoutineDayFromPreviousVC = currentRoutineDay
+        vc?.currentRoutineDayName = currentRoutineDayName
+        vc?.currentRoutineDayIdentifier = currentRoutineDayIdentifier
+        vc?.currentRoutineName = currentRoutineName
+        vc?.currentRoutineIdentifier = currentRoutineIdentifier
+        vc?.routineDayKey = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayKey
         print(currentRoutineDay.routineDayTitle)
         self.navigationController?.pushViewController(vc!, animated: true)
         

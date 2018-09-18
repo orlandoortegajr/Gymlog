@@ -40,50 +40,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         completeSignUp()
     }
     
-    //When return is pressed, keyboard exits
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
-    func authentication() {
-        // MARK: Begin Loading Interface
-        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-            // MARK: End Loading
-            
-            guard let email = authResult?.user.email, error == nil else {
-                //TODO: Find a way to display error to screen
-                
-                print(error!.localizedDescription)
-                return
-            }
-            
-            //MARK: Write to Database
-            self.writeToDatabase(newUser: authResult)
-           
-            print("\(email) created")
-            
-            // TODO: Exit the view Controller back to Gym Log Intro Screen
-            
-            guard (authResult?.user) != nil else {return}
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-    }
-    
-    func writeToDatabase(newUser : AuthDataResult? ) {
-        let usersReference = self.ref.child("users")
-        let values = ["email" : email, "name" : name ]
-        usersReference.child((newUser?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
-            
-            if error != nil {
-                print(error!)
-                return
-            }
-            
-            print("E-mail user has been added to the database.")
-        })
-    }
-    
     func completeSignUp() {
         if nameTextField.text != "" {
             name = nameTextField.text!
@@ -113,6 +69,50 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         } else {
             print("Please enter your name")
         }
+    }
+    
+    func authentication() {
+        // MARK: Begin Loading Interface
+        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+            // MARK: End Loading
+            
+            guard let email = authResult?.user.email, error == nil else {
+                //TODO: Find a way to display error to screen
+                
+                print(error!.localizedDescription)
+                return
+            }
+            
+            //MARK: Write to Database
+            self.writeToDatabase(newUser: authResult)
+           
+            print("Account with email: \(email) created")
+            
+            guard (authResult?.user) != nil else {return}
+            self.performSegue(withIdentifier: "toMainScreenFromSignUp", sender: self)
+//            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func writeToDatabase(newUser : AuthDataResult? ) {
+        let usersReference = self.ref.child("users")
+        let values = ["email" : email, "name" : name ]
+        usersReference.child((newUser?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
+            
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            print("E-mail user \(self.email) has been added to the database.")
+        })
+    }
+    
+    
+    //When return is pressed, keyboard exits
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
 }

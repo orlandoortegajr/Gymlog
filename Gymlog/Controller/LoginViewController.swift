@@ -19,6 +19,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     
     var ref : DatabaseReference!
     
+    var email = "", password = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,12 +32,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
         setupGoogleButton()
         setupFacebookButton()
         
+        //Needed to fulfill FBSDK delegate requirements
         if FBSDKAccessToken.current() != nil {
             print("FB user logged in")
         } else {
             print("No FB user logged in")
         }
         
+    }
+    
+    @IBAction func loginButtonPressed(_ sender: UIButton) {
+        login()
+    }
+    
+    @IBAction func signUpButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "toSignUpScreen", sender: self)
     }
     
     func setupFacebookButton() {
@@ -48,8 +59,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     
     func setupGoogleButton() {
         let googleButton = GIDSignInButton()
-        //TODO: Maybe figure out ratios for line below?
-        //SWITCH CGFRAMES TO CONSTRAINTS
+        //TODO: Figure out ratios for button to fix UI
+        
+        //TODO: SWITCH CGFRAMES TO CONSTRAINTS
         googleButton.frame = CGRect(x: 71, y: 425 , width: 235, height: 30)
         
         view.addSubview(googleButton)
@@ -64,55 +76,79 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
         } else if result.isCancelled{
             print("User Cancelled")
         } else {
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-            Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-                // User is signed in
-                let usersReference = self.ref.child("users")
-                let values = ["email" : authResult!.user.email!, "name" : authResult!.user.displayName! ]
-                usersReference.child((authResult?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
-                    
-                    if error != nil {
-                        print(error!)
-                        return
-                    }
-                    
-                    print("Facebook user has been added to the database.")
-                })
-                self.performSegue(withIdentifier: "toMainScreen", sender: self)
-            }
+            authenticationForFBUser()
         }
         //Successful login
     }
     
+    func authenticationForFBUser() {
+        Auth.auth().signInAndRetrieveData(with: obtainCredential()) { (authResult, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            // User is signed in
+            self.writeToDatabaseForFBUser(withAuthenticationResult: authResult)
+            self.performTransition()
+        }
+    }
+    
+    func obtainCredential() -> AuthCredential {
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        return credential
+    }
+    
+    func writeToDatabaseForFBUser(withAuthenticationResult authResult : AuthDataResult? ) {
+        let usersReference = self.ref.child("users")
+        let values = ["email" : authResult!.user.email!, "name" : authResult!.user.displayName! ]
+        usersReference.child((authResult?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
+            
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            print("Facebook user has been added to the database.")
+            
+        })
+    }
+    
+    //Conform to FBSDK delegate
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("FB user logged out!")
     }
     
-    
     //TODO: Make Errors Appear Properly
-    @IBAction func loginButtonPressed(_ sender: UIButton) {
-        if let email = emailTextField.text, let password = passwordTextField.text {
-            //TODO: Start Loading
-            Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                //TODO: Hide Loading
-                if let error = error {
-                    //TODO: Show this to screen
-                    print(error.localizedDescription)
-                } else {
-                    self.performSegue(withIdentifier: "toMainScreen", sender: self)
-                }
+    func login() {
+        if emailTextField.text != "" {
+            email = emailTextField.text!
+            if passwordTextField.text != "" {
+                password = passwordTextField.text!
+                
+               emailAuthentication(withEmail: email, password: password)
+                
+            } else {
+                print("Password can't be empty")
             }
         } else {
-            //TODO: Show this to screen
-            print("Email/Password can't be empty")
+            print("Email can't empty")
         }
     }
     
-    @IBAction func signUpButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "toSignUpScreen", sender: self)
+    func emailAuthentication(withEmail: String, password: String) {
+        //MARK: Start Loading
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            //MARK: Hide Loading
+            if let error = error {
+                //TODO: Show this to screen
+                print(error.localizedDescription)
+            } else {
+                self.performTransition()
+            }
+        }
+    }
+    
+    func performTransition() {
+        performSegue(withIdentifier: "toMainScreen", sender: self)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

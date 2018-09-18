@@ -12,8 +12,10 @@ class RoutineDay {
     
     var routineDayTitle : String
     var routineDayExercises = [Exercise]()
+    var routineDayKey : String
     
-    init(routineDayTitle: String) {
+    init(routineDayTitle: String, routineDayKey: String) {
         self.routineDayTitle = routineDayTitle
+        self.routineDayKey = routineDayKey
     }
 }

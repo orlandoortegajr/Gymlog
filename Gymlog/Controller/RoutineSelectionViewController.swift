@@ -19,6 +19,11 @@ class RoutineSelectionViewController: UIViewController {
     var currentSelectedRoutine : Routine!
     var currentRoutineChildValue: Dictionary<String, String>!
     
+    //Current routine selected variables to pass
+    var currentRoutineIdentifier: String!
+    var currentRoutineName: String!
+    var routineKeyDict = [Int: String]()
+    
     var handle : AuthStateDidChangeListenerHandle?
     
     var ref: DatabaseReference!
@@ -122,9 +127,7 @@ class RoutineSelectionViewController: UIViewController {
 //Method that adds cells respective to the given routine name
     func insertNewRoutine() {
         let indexPath = IndexPath(row: routines.count - 1, section: 0)
-        let routine = routines[indexPath.row].routineTitle
-        currentRoutineChildValue = ["routine \(indexPath.row + 1)": routine]
-        self.ref.child("Gym Routines").child((Auth.auth().currentUser?.uid)!).child("routine titles").updateChildValues(currentRoutineChildValue)
+        writeToDatabase(index: indexPath)
         
         tableView.beginUpdates()
         tableView.insertRows(at: [indexPath], with: .automatic)
@@ -133,6 +136,28 @@ class RoutineSelectionViewController: UIViewController {
         view.endEditing(true)
         
     }
+    
+    func writeToDatabase(index indexPath: IndexPath) {
+        
+        let routineTitle = routines[indexPath.row].routineTitle
+        currentRoutineChildValue = ["routine \(indexPath.row + 1)": routineTitle]
+        for (key,value) in currentRoutineChildValue {
+            currentRoutineIdentifier = key
+            currentRoutineName = value
+        }
+        
+        let userID = (Auth.auth().currentUser?.uid)!
+        
+        //Key is the ID for the routine
+        let key = ref.child("Routines").childByAutoId().key
+        routineKeyDict[indexPath.row] = key
+        let routine = ["Routine Title": routineTitle]
+        let childUpdates = ["Routines/\(userID)/\(key)": routine]
+        ref.updateChildValues(childUpdates)
+        
+        
+    }
+    
 }
 
 //TableView setup to add cells and display default
@@ -158,7 +183,7 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
             routines.remove(at: indexPath.row)
@@ -173,6 +198,9 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
         let vc = storyboard?.instantiateViewController(withIdentifier: "DaySelectionViewController") as? RoutineDaySelectionViewController
         currentSelectedRoutine = routines[indexPath.row]
         vc?.currentRoutineFromPreviousVC = currentSelectedRoutine
+        vc?.currentRoutineName = currentRoutineName
+        vc?.currentRoutineIdentifier = currentRoutineIdentifier
+        vc?.routineKey = routineKeyDict[indexPath.row]
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
