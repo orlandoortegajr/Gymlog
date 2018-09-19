@@ -22,12 +22,10 @@ class RoutineDaySelectionViewController: UIViewController {
     
     
     var currentRoutineDay : RoutineDay!
-    var currentRoutineFromPreviousVC : Routine!
+    var currentRoutine : Routine!
     var currentRoutineDayChildValue : Dictionary<String, String>!
     
     //From last view controller that describe the current routine
-    var currentRoutineIdentifier: String!
-    var currentRoutineName: String!
     var routineKey: String!
     
     //Current routine day selected variables to be passed on
@@ -67,10 +65,10 @@ class RoutineDaySelectionViewController: UIViewController {
         } else {
             let key = ref.child("Routine Days").childByAutoId().key
             let tempRoutineDay = RoutineDay(routineDayTitle: routineDayTextField.text!, routineDayKey: key)
-            currentRoutineFromPreviousVC.routineDays.append(tempRoutineDay)
+            currentRoutine.routineDays.append(tempRoutineDay)
             let routineDayTitle = tempRoutineDay.routineDayTitle
             
-            let indexPath = IndexPath(row: currentRoutineFromPreviousVC.routineDays.count - 1, section: 0)
+            let indexPath = IndexPath(row: currentRoutine.routineDays.count - 1, section: 0)
             currentRoutineDayChildValue = ["routine day \(indexPath.row + 1)" : routineDayTitle]
             for (key,value) in currentRoutineDayChildValue {
                 currentRoutineDayIdentifier = key
@@ -99,12 +97,12 @@ class RoutineDaySelectionViewController: UIViewController {
 extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentRoutineFromPreviousVC.routineDays.count
+        return currentRoutine.routineDays.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let day = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayTitle
+        let day = currentRoutine.routineDays[indexPath.row].routineDayTitle
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DayCell") as! RoutineDayCell
         
@@ -120,7 +118,7 @@ extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            currentRoutineFromPreviousVC.routineDays.remove(at: indexPath.row)
+            currentRoutine.routineDays.remove(at: indexPath.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -131,14 +129,12 @@ extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseSelectionViewController") as? ExerciseSelectionViewController
-        vc?.exerciseDayLabelText = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayTitle
-        currentRoutineDay = currentRoutineFromPreviousVC.routineDays[indexPath.row]
+        vc?.exerciseDayLabelText = currentRoutine.routineDays[indexPath.row].routineDayTitle
+        currentRoutineDay = currentRoutine.routineDays[indexPath.row]
         vc?.currentRoutineDayFromPreviousVC = currentRoutineDay
         vc?.currentRoutineDayName = currentRoutineDayName
         vc?.currentRoutineDayIdentifier = currentRoutineDayIdentifier
-        vc?.currentRoutineName = currentRoutineName
-        vc?.currentRoutineIdentifier = currentRoutineIdentifier
-        vc?.routineDayKey = currentRoutineFromPreviousVC.routineDays[indexPath.row].routineDayKey
+        vc?.routineDayKey = currentRoutine.routineDays[indexPath.row].routineDayKey
         print(currentRoutineDay.routineDayTitle)
         self.navigationController?.pushViewController(vc!, animated: true)
         

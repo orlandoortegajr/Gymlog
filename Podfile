@@ -13,8 +13,7 @@ target 'Gymlog' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Database'
 	pod 'GoogleSignIn'
-	pod 'FBSDKCoreKit'
-	pod 'FBSDKShareKit'
 	pod 'FBSDKLoginKit'
+	pod 'FBSDKCoreKit'
 
 end

@@ -10,8 +10,6 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-
-
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
@@ -90,7 +88,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             
             guard (authResult?.user) != nil else {return}
             self.performSegue(withIdentifier: "toMainScreenFromSignUp", sender: self)
-//            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -107,7 +104,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             print("E-mail user \(self.email) has been added to the database.")
         })
     }
-    
     
     //When return is pressed, keyboard exits
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -15,6 +15,7 @@ class Exercise {
     var reps : Int?
     var restTime : Int?
     var weight : Int?
+
     
     init(title : String) {
         self.title = title

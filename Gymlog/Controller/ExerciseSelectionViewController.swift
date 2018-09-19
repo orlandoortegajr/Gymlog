@@ -23,15 +23,12 @@ class ExerciseSelectionViewController: UIViewController {
     var currentRoutineDayFromPreviousVC : RoutineDay!
     
     //From last view controller which describe current routine
-    var currentRoutineIdentifier: String!
-    var currentRoutineName: String!
     var routineDayKey: String!
     
     //From last view controller which describe current routine day
     var currentRoutineDayIdentifier: String!
     var currentRoutineDayName: String!
     
-    var exerciseKey = [Int:String]()
     
     var ref: DatabaseReference!
     
@@ -68,19 +65,17 @@ class ExerciseSelectionViewController: UIViewController {
         if exerciseTextField.text! == "" {
             print("Empty Cell")
         } else {
+
             let tempExercise = Exercise(title: exerciseTextField.text!)
             currentRoutineDayFromPreviousVC.routineDayExercises.append(tempExercise)
             
             
             
             let indexPath = IndexPath(row: (currentRoutineDayFromPreviousVC.routineDayExercises.count) - 1, section: 0)
-            currentExercise = currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row]
             
-            let key = ref.child("Exercises").childByAutoId().key
-            exerciseKey[indexPath.row] = key
 
             let exercise = ["sets": tempExercise.sets ?? 0, "reps" : tempExercise.reps ?? 0, "weight" : tempExercise.weight ?? 0 ]
-            let childUpdates = ["Exercises/\(routineDayKey!)/\(key)/\(currentExercise.title)": exercise]
+            let childUpdates = ["Exercises/\(routineDayKey!)/\(currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row].title)": exercise]
             ref.updateChildValues(childUpdates)
             
             tableView.beginUpdates()
@@ -135,8 +130,8 @@ extension ExerciseSelectionViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseOptionsViewController") as? ExerciseOptionsViewController
         vc?.exerciseTitleText = currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row].title
-        vc?.routineDayKey = routineDayKey
-        vc?.exerciseKey = exerciseKey[indexPath.row]
+        vc?.routineDayKey = currentRoutineDayFromPreviousVC.routineDayKey
+        currentExercise = currentRoutineDayFromPreviousVC.routineDayExercises[indexPath.row]
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }

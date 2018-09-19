@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
+import FBSDKCoreKit
 import FirebaseDatabase
 
 class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
@@ -32,11 +33,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
         setupGoogleButton()
         setupFacebookButton()
         
-        //Needed to fulfill FBSDK delegate requirements
+        //If FB user logged in transfer them to Main View.
         if FBSDKAccessToken.current() != nil {
-            print("FB user logged in")
-        } else {
-            print("No FB user logged in")
+            print("FB user already Logged In!")
+            performTransitionToMainScreen()
+        }
+        
+        //Check if user is logged in and transfer them to Main View
+        if Auth.auth().currentUser != nil {
+            print("An Email/Google user is already Logged In!")
+            performTransitionToMainScreen()
         }
         
     }
@@ -51,7 +57,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     
     func setupFacebookButton() {
         let loginButton = FBSDKLoginButton()
-        loginButton.readPermissions = ["public_profile", "email"]
         view.addSubview(loginButton)
         loginButton.frame = CGRect(x: 75, y: 485, width: 225, height: 30)
         loginButton.delegate = self
@@ -82,24 +87,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     }
     
     func authenticationForFBUser() {
-        Auth.auth().signInAndRetrieveData(with: obtainCredential()) { (authResult, error) in
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
                 print(error.localizedDescription)
             }
             // User is signed in
             self.writeToDatabaseForFBUser(withAuthenticationResult: authResult)
-            self.performTransition()
+            self.performTransitionToMainScreen()
         }
-    }
-    
-    func obtainCredential() -> AuthCredential {
-        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        return credential
     }
     
     func writeToDatabaseForFBUser(withAuthenticationResult authResult : AuthDataResult? ) {
         let usersReference = self.ref.child("users")
+        
+        //child values of parent "user" in Database
         let values = ["email" : authResult!.user.email!, "name" : authResult!.user.displayName! ]
+        
         usersReference.child((authResult?.user.uid)!).updateChildValues(values, withCompletionBlock: { (error, ref) in
             
             if error != nil {
@@ -117,7 +121,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
         print("FB user logged out!")
     }
     
-    //TODO: Make Errors Appear Properly
+    //TODO: Make Errors Appear On Screen
+    //Logs email user in and checks for textFields
     func login() {
         if emailTextField.text != "" {
             email = emailTextField.text!
@@ -142,15 +147,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
                 //TODO: Show this to screen
                 print(error.localizedDescription)
             } else {
-                self.performTransition()
+                self.performTransitionToMainScreen()
             }
         }
     }
     
-    func performTransition() {
+    func performTransitionToMainScreen() {
         performSegue(withIdentifier: "toMainScreen", sender: self)
     }
     
+    //Hides Keyboard after return is pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
