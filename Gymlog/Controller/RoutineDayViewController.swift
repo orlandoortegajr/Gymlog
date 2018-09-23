@@ -20,19 +20,12 @@ class RoutineDaySelectionViewController: UIViewController {
     
     var ref : DatabaseReference!
     
-    
+    //Current values that need to be tracked for database schema
     var currentRoutineDay : RoutineDay!
     var currentRoutine : Routine!
-    var currentRoutineDayChildValue : Dictionary<String, String>!
     
     //From last view controller that describe the current routine
     var routineKey: String!
-    
-    //Current routine day selected variables to be passed on
-    var currentRoutineDayIdentifier: String!
-    var currentRoutineDayName: String!
-    
-    var handle : AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,59 +34,51 @@ class RoutineDaySelectionViewController: UIViewController {
         ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-            self.tableView.reloadData()
-        })
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        Auth.auth().removeStateDidChangeListener(handle!)
-    }
-    
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        insertNewDay()
+        insertNewDayCell()
     }
     
-    func insertNewDay() {
+    func insertNewDayCell() {
         if routineDayTextField.text! == "" {
             print("Empty Cell")
         } else {
+            //Routine Day database ID
             let key = ref.child("Routine Days").childByAutoId().key
+            
+            //Current Routine Day Item added by user
             let tempRoutineDay = RoutineDay(routineDayTitle: routineDayTextField.text!, routineDayKey: key)
             currentRoutine.routineDays.append(tempRoutineDay)
+            
             let routineDayTitle = tempRoutineDay.routineDayTitle
             
             let indexPath = IndexPath(row: currentRoutine.routineDays.count - 1, section: 0)
-            currentRoutineDayChildValue = ["routine day \(indexPath.row + 1)" : routineDayTitle]
-            for (key,value) in currentRoutineDayChildValue {
-                currentRoutineDayIdentifier = key
-                currentRoutineDayName = value
-            }
             
-            let routineDay = ["Routine Day Title": routineDayTitle]
-            let childUpdates = ["Routine Days/\(routineKey!)/\(key)": routineDay]
-            ref.updateChildValues(childUpdates)
+            writeToDatabase(title: routineDayTitle, key: key, index: indexPath)
             
+            //Inserting cell to tableView
             tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()
             
             view.endEditing(true)
             
+            //Resetting textfield text
             routineDayTextField.text = ""
         }
        
     }
     
+    func writeToDatabase(title: String, key: String, index: IndexPath) {
+        
+        let routineDay = ["Routine Day Title": title]
+        let childUpdates = ["Routine Days/\(routineKey!)/\(key)": routineDay]
+        ref.updateChildValues(childUpdates)
+        
+    }
+    
 }
 
-//Setting Up the Table and It's action capabilities
-
+//Table Setup
 extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -129,13 +114,17 @@ extension RoutineDaySelectionViewController : UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "ExerciseSelectionViewController") as? ExerciseSelectionViewController
+        
+        //Sets title for next view
         vc?.exerciseDayLabelText = currentRoutine.routineDays[indexPath.row].routineDayTitle
+        
+        //Current routine day selected
         currentRoutineDay = currentRoutine.routineDays[indexPath.row]
         vc?.currentRoutineDayFromPreviousVC = currentRoutineDay
-        vc?.currentRoutineDayName = currentRoutineDayName
-        vc?.currentRoutineDayIdentifier = currentRoutineDayIdentifier
+        
+        //Current routine day name and ID
         vc?.routineDayKey = currentRoutine.routineDays[indexPath.row].routineDayKey
-        print(currentRoutineDay.routineDayTitle)
+        
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }

@@ -95,6 +95,7 @@ class RoutineSelectionViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if textField!.text! == "" {
+                //TODO: Display to screen
                 print("Please provide a name for your Routine!")
             } else {
                 //Record routine in the routines array
@@ -115,6 +116,7 @@ class RoutineSelectionViewController: UIViewController {
         let routineTitle = routines[indexPath.row].routineTitle
         writeToDatabase(index: indexPath, routineTitle: routineTitle)
         
+        //Inserting cell to tableView
         tableView.beginUpdates()
         tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
@@ -152,7 +154,6 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let routine = routines[indexPath.row].routineTitle
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell") as! RoutineCell
@@ -186,6 +187,7 @@ extension RoutineSelectionViewController : UITableViewDelegate, UITableViewDataS
         
         //Current routine ID passed on to track database association between parents and child nodes.
         vc?.routineKey = routineKeyDict[indexPath.row]
+        
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     

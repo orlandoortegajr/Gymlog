@@ -19,9 +19,10 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     var exerciseOptions = [Option]()
-    var individualOptionData = ["0", "0", "0", "0"]
+    var exerciseTitleText: String!
     
-    var exerciseTitleText : String!
+    //Stores the values input by the user to be placed in previous view controller cells' subtitles
+    var individualOptionData = ["0", "0", "0", "0"]
     
     var ref : DatabaseReference!
     var routineNumber : Int!
@@ -30,10 +31,12 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        exerciseTitle.text = exerciseTitleText
+        
         setupOptions()
         tableView.tableFooterView = UIView(frame: .zero)
+        
+        //Sets exercise title to current view controller title to indicate which exercise is being edited
+        exerciseTitle.text = exerciseTitleText
         
         ref = Database.database().reference(fromURL: "https://gymlog-afa5e.firebaseio.com/")
     }
@@ -43,18 +46,24 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
         exerciseOptions += [reps, sets, weight, restTime]
     }
     
+    //Dismisses Keyboard when return is pressed
     func textFieldDidEndEditing(_ textField: UITextField) {
         individualOptionData[textField.tag] = textField.text!
     }
     
+    //Indicates boolean value of of textfield returning value
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.tag == 0 {
+        
+        switch textField.tag {
+            
+        case 0:
+            //Calls function to highlight to user return has been pressed
             textFieldAfterReturn(textField)
-        } else if textField.tag == 1 {
+        case 1:
             textFieldAfterReturn(textField)
-        } else if textField.tag == 2 {
+        case 2:
             textFieldAfterReturn(textField)
-        } else if textField.tag == 3 {
+        default:
             textFieldAfterReturn(textField)
             
         }
@@ -62,6 +71,7 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    //Highlights to user that return has been pressed and value received
     func textFieldAfterReturn(_ textField: UITextField) {
         individualOptionData[textField.tag] = textField.text!
         textField.borderStyle = .none
@@ -70,27 +80,36 @@ class ExerciseOptionsViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
     }
     
+    //Prepares for segueway backwards to previous view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destVC = segue.destination as! ExerciseSelectionViewController
-        print(destVC.currentExercise.title)
+        
+        //Sets current Exercise's cell subtitles
         destVC.currentExercise.reps = Int(individualOptionData[0])
         destVC.currentExercise.sets = Int(individualOptionData[1])
         destVC.currentExercise.weight = Int(individualOptionData[2])
         destVC.currentExercise.restTime = Int(individualOptionData[3])
         
+        writeToDatabase(previousView: destVC)
+       
+        destVC.tableView.reloadData()
+    }
+    
+    func writeToDatabase(previousView : ExerciseSelectionViewController) {
         let values = ["sets": Int(individualOptionData[1])!, "reps" : Int(individualOptionData[0])!, "weight" : Int(individualOptionData[2])! ]
         //"Exercises/\(routineDayKey!)/"
-        self.ref.child("Exercises/\(routineDayKey!)/\(destVC.currentExercise.title)").updateChildValues(values, withCompletionBlock: { (error, ref) in
+        self.ref.child("Exercises/\(routineDayKey!)/\(previousView.currentExercise.title)").updateChildValues(values, withCompletionBlock: { (error, ref) in
             if error != nil {
                 print(error!)
                 return
             }
             print("Exercise added to database")
         })
-        destVC.tableView.reloadData()
     }
 
 }
+
+//Table Setup
 
 extension ExerciseOptionsViewController: UITableViewDelegate, UITableViewDataSource {
     
